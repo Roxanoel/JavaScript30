@@ -61,10 +61,27 @@
   window.addEventListener('keydown', function(e) {
     // Finds the audio file matching the pressed key
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
     // If there is none, return
     if (!audio) return;
+    // Rewinds sound clip to 0; allows to play it in quick succession
+    audio.currentTime = 0; 
     audio.play();
+    // Adds the 'playing' class to the pressed key to change its style
+    key.classList.add('playing');
   });
+ 
+  // Ensures that the visual effect of pressing a key goes away
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; // skip if it is not a transform
+    console.log(e.propertyName);
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+
 </script>
 
 
