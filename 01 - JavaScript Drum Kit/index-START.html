@@ -59,7 +59,11 @@
 
 <script>
   window.addEventListener('keydown', function(e) {
-    console.log(e);
+    // Finds the audio file matching the pressed key
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    // If there is none, return
+    if (!audio) return;
+    audio.play();
   });
 </script>
 
